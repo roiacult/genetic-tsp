@@ -515,7 +515,7 @@ async def websocket_endpoint(websocket: WebSocket):
     while True:
         data = await websocket.receive_text()
         if "start" in data:
-            # TODO: start ga here algotithmss
             tsp = TspAPP(n_generations=k_n_generations,pop_size=k_population_size,websocket=websocket)
             await tsp.GA_loop()
+            await websocket.send_text('done')
         
