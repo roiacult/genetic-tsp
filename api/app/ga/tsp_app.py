@@ -11,13 +11,15 @@ class City(object):
     x: longitude of the city
     y: latitude of the city
     name: city name
+    code : city wilaya code
     distance_to: dictionary of distances to other cities
     """
-    def __init__(self, name, x, y, distance_to=None):
+    def __init__(self, name, x, y, code, distance_to=None):
         # Name and coordinates:
         self.name = name
         self.x = self.graph_x = x
         self.y = self.graph_y = y
+        self.code = code
         # Appends itself to the global list of cities:
         # Creates a dictionary of the distances to all the other cities (distance to it self is 0)
         self.distance_to = {self.name:0.0}
@@ -93,11 +95,11 @@ class Route(object):
         cities_dict = {}
 
         for city in self.route:
-            cities_dict[city.name] = {'x': city.x, 'y': city.y}
+            cities_dict[city.name] = {'x': city.x, 'y': city.y, 'code': city.code}
         
         for i in range(len(self.route)):
             city = self.route[i]
-            cities_dict[city.name] = {'x': city.x, 'y': city.y, 'index': i}
+            cities_dict[city.name] = {'x': city.x, 'y': city.y, 'index': i, 'code' : city.code}
     
         return cities_dict
 
@@ -392,7 +394,7 @@ class TspAPP(object):
         with open(self.csv_file, 'rt') as f:
             reader = csv.reader(f)
             for row in reader:
-                self.cities.append( City(row[0],float(row[1]),float(row[2])))
+                self.cities.append( City(row[0],float(row[1]),float(row[2]), row[3]))
         for city in self.cities:
             city.calculate_distances(self.cities)
             
