@@ -14,10 +14,10 @@ from app.ga.tsp_app import TspAPP
 k_mut_prob = 0.4
 
 # Number of generations to run for
-k_n_generations = 100
+k_n_generations = 200
 
 # Population size of 1 generation (RoutePop)
-k_population_size = 100
+k_population_size = 1000
 
 # Size of the tournament selection. 
 tournament_size = 7
@@ -60,4 +60,3 @@ async def websocket_endpoint(websocket: WebSocket):
             # send chain of routes until it done iterating
             await tsp.GA_loop()
             await websocket.send_text('done')
-        
